@@ -1,0 +1,18 @@
+{
+"name": "Build APK",
+"on": {"push": {"branches": ["main", "master"]}, "workflow_dispatch": null},
+"permissions": {"contents": "write"},
+"jobs": {"build": {"runs-on": "ubuntu-latest", "steps": [
+{"uses": "actions/checkout@v4"},
+{"uses": "actions/setup-node@v4", "with": {"node-version": 20}},
+{"uses": "actions/setup-java@v4", "with": {"distribution": "temurin", "java-version": 17}},
+{"name": "Siapkan proyek Capacitor", "run": "mkdir -p www\nfor f in *; do\n  case \"$f\" in\n    www|node_modules|android|README.md|package.json|package-lock.json|capacitor.config.json|build-apk.yml) ;;\n    *) cp -r \"$f\" www/ ;;\n  esac\ndone\nls -la www\ncat > package.json <<'EOF2'\n{\"name\":\"gochat\",\"version\":\"1.0.0\",\"private\":true,\n \"dependencies\":{\"@capacitor/android\":\"^6.1.2\",\"@capacitor/core\":\"^6.1.2\"},\n \"devDependencies\":{\"@capacitor/cli\":\"^6.1.2\"}}\nEOF2\ncat > capacitor.config.json <<'EOF2'\n{\"appId\":\"com.gochat.app\",\"appName\":\"GOchat\",\"webDir\":\"www\",\"backgroundColor\":\"#0b1210\"}\nEOF2\n"},
+{"run": "npm install"},
+{"run": "npx cap add android"},
+{"run": "npx cap sync android"},
+{"name": "Build APK", "run": "cd android && chmod +x gradlew && ./gradlew assembleDebug"},
+{"name": "Ganti nama APK", "run": "cp android/app/build/outputs/apk/debug/app-debug.apk GOchat.apk"},
+{"uses": "actions/upload-artifact@v4", "with": {"name": "GOchat-apk", "path": "GOchat.apk"}},
+{"uses": "softprops/action-gh-release@v2", "with": {"tag_name": "v${{ github.run_number }}", "name": "GOchat v${{ github.run_number }}", "files": "GOchat.apk"}}
+]}}
+}
