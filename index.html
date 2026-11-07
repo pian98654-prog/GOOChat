@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>GOchat</title>
+  <meta name="description" content="GOchat: aplikasi pesan dengan menu Chat, Status, dan Pengaturan.">
+  <meta name="theme-color" content="#0A8A4C">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="GOchat">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon-64.png" sizes="64x64" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app" id="app">
+    <header class="top gutter"><div class="brand" aria-label="GOchat"><span class="go">GO</span>chat</div></header>
+    <main id="main"></main>
+    <nav class="tabs gutter" id="tabs" aria-label="Menu utama"></nav>
+    <section class="overlay" id="overlay" role="dialog" aria-modal="true" hidden></section>
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  </div>
+  <noscript>GOchat membutuhkan JavaScript untuk berjalan.</noscript>
+  <script src="app.js"></script>
+</body>
+</html>
